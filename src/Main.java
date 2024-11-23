@@ -7,15 +7,10 @@ public class Main {
         Station amsterdam = new Station("amsterdam");
         Station berlin = new Station("berlin");
 
-        Route route = null;
-        try {
-            Station[] arr1 = {paris, amsterdam, berlin};
-            int[] arr2 = {0, 5, 6};
-            route = new Route(arr1, arr2);
-            //System.out.println(route.toString());
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error: " + e.getMessage());
-        }
+        Station[] arr1 = {paris, amsterdam, berlin};
+        int[] arr2 = {0, 5, 6};
+        Route route = new Route(arr1, arr2);
+
         LocalDateTime localDateTime = LocalDateTime.of(
                 2021, Month.APRIL, 24, 14, 33, 48);
 

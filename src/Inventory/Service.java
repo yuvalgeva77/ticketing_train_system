@@ -13,12 +13,12 @@ public class Service {
         this.rout = rout;
         this.departureTime = departureTime;
         this.carriages = new Carriage[TOTAL_CARRIAGES];
-        createCariages();
+        createCariages(rout.getRoutSize());
     }
 
-    private void createCariages() {
+    private void createCariages(int routSize) {
         for (int i = 0; i < TOTAL_CARRIAGES; i++) {
-            this.carriages[i]=new Carriage();
+            this.carriages[i]=new Carriage(routSize);
         }
     }
 
@@ -42,4 +42,5 @@ public class Service {
                 "\nCarriages=" + Arrays.toString(carriages) +
                 "\n}";
     }
+
 }

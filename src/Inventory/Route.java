@@ -53,6 +53,10 @@ public class Route {
         return this.stops;
     }
 
+    public int getRoutSize(){
+        return this.stops.length;
+    }
+
     @Override
     public String toString() {
         return Arrays.toString(stops);
