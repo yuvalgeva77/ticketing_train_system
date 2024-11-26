@@ -15,7 +15,6 @@ public class Booking {
     private String destination;
     private char carriage;
     private int seatNumber;
-    private LocalDateTime departureTime;
 
     // Basic constructor for required fields
     public Booking(Passenger passenger, Long serviceId, String seatType, String origin, String destination, char carriage, int seatNumber) {
@@ -28,12 +27,6 @@ public class Booking {
         this.carriage = carriage;
         this.seatNumber = seatNumber;
         this.serviceId = serviceId;
-    }
-
-    // Constructor with optional parameters
-    public Booking(Passenger passenger, Long serviceId, String seatType, String origin, String destination, char carriage, int seatNumber, LocalDateTime departureTime) {
-        this(passenger, serviceId, seatType, origin, destination, carriage, seatNumber);
-        this.departureTime = departureTime;
     }
 
     public long getId() {
@@ -75,7 +68,6 @@ public class Booking {
                 ", destination='" + destination + '\'' +
                 ", carriage=" + carriage +
                 ", seatNumber=" + seatNumber +
-                ", departureTime='" + departureTime + '\'' +
                 '}';
     }
 

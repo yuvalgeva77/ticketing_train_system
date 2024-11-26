@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class ReservationSystem {
     private static ReservationSystem reservationSystemSingleton = null;
-    private Map<Long, Booking> bookings;
+    private final Map<Long, Booking> bookings;
     SystemInventory systemInventory;
 
     private ReservationSystem()
@@ -43,16 +43,15 @@ public class ReservationSystem {
     // Check if a seat is available for a given booking
     private boolean isSeatAvailable(Booking booking) throws Exception {
         Service service = systemInventory.getServiceById(booking.getServiceId());
-        return (service != null &&
-                service.isSeatAvailable(booking.getCarriage(),
+        return (service.isSeatAvailable(booking.getCarriage(),
                 booking.getSeatNumber(), booking.getSeatType(),
-                        booking.getOrigin(), booking.getDestination())); //TODO
+                        booking.getOrigin(), booking.getDestination()));
     }
 
     // Check if all seats are available for a few booking
-    private boolean isAllSeatsAvailable(Booking[] booking) throws Exception {
-        for (int i = 0; i < booking.length; i++) {
-            if(!isSeatAvailable(booking[i])){
+    private boolean isAllSeatsAvailable(Booking[] bookings) throws Exception {
+        for (Booking booking : bookings) {
+            if (!isSeatAvailable(booking)) {
                 return false;
             }
         }
@@ -65,36 +64,35 @@ public class ReservationSystem {
                 service.reserveSeat(booking.getCarriage(),
                         booking.getSeatNumber(),
                         booking.getOrigin(),
-                        booking.getDestination()); //TODO
+                        booking.getDestination());
     }
 
     // Save all seats for a few bookings
-    private void reserveSeats(Booking[] booking) throws Exception {
-        for (int i = 0; i < booking.length; i++) {
-            reserveSeat(booking[i]);
+    private void reserveSeats(Booking[] bookings) throws Exception {
+        for (Booking booking : bookings) {
+            reserveSeat(booking);
         }
     }
 
-    private void saveBookings(Booking[] booking) {
-        for (int i = 0; i < booking.length; i++) {
-            this.bookings.put(booking[i].getId(), booking[i]);
+    private void saveBookings(Booking[] bookings) {
+        for (Booking booking : bookings) {
+            this.bookings.put(booking.getId(), booking);
         }
     }
 
-    private Set<Ticket> createRickets(Booking[] booking) {
+    private Set<Ticket> createRickets(Booking[] bookings) {
         Set<Ticket> tickets = new HashSet<>();
-        for (int i = 0; i < booking.length; i++) {
+        for (Booking booking : bookings) {
             tickets.add(
-                    new Ticket(booking[i].getPassenger(), booking[i].getServiceId(),
-                    booking[i].getOrigin(), booking[i].getDestination(),
-                            booking[i].getCarriage(), booking[i].getSeatNumber()
+                    new Ticket(booking.getPassenger(), booking.getServiceId(),
+                            booking.getOrigin(), booking.getDestination(),
+                            booking.getCarriage(), booking.getSeatNumber()
                     ));
         }
         return  tickets;
     }
 
     public Response makeReservation(Booking[] bookings) {
-
         if (bookings == null || bookings.length==0) {
             return new SimpleResponse(404, "Booking is empty");
         }
@@ -112,7 +110,6 @@ public class ReservationSystem {
          return new SimpleResponse(200, tickets);
      }
      catch (Exception e) {
-         e.printStackTrace();
          return new SimpleResponse(500, "Internal Server Error: " + e.getMessage());
      }
 

@@ -14,7 +14,7 @@ public class ReservationHTTPClient implements HTTPClient {
         if (url.equals("/reservation")) {
             if (body instanceof Booking[] booking) {
                 // Call ReservationSystem and return its response
-              return  reservationSystem.makeReservation(booking);
+              return reservationSystem.makeReservation(booking);
             }
             return new SimpleResponse(400, "Invalid request body: Expected Booking[]");
         }
