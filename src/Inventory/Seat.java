@@ -11,7 +11,7 @@ public abstract class Seat {
         this.occupiedInStop = new boolean[routSize];
     }
 
-    public void saveSeat(int origin, int destination) throws IllegalArgumentException {
+    public void reserveSeat(int origin, int destination) throws IllegalArgumentException {
         isValidateRange(origin, destination);
         for (int i=origin;i<=destination;i++) {
             this.occupiedInStop[i] = true;

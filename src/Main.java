@@ -1,9 +1,18 @@
 import Inventory.*;
+import Server.HTTPClient;
+import Server.ReservationHTTPClient;
+import Server.ReservationSystem;
+import Server.Response;
+import Ticketing.Booking;
+import Ticketing.Passenger;
+
 import java.time.*;
 
 public class Main {
     public static void main(String[] args) {
         SystemInventory systemInventory = SystemInventory.getInstance();
+        ReservationSystem reservationSystem = ReservationSystem.getInstance();
+        HTTPClient httpClient = new ReservationHTTPClient();
 
         Station paris1 = new Station("Paris1");
         Station paris2 = new Station("Paris2");
@@ -20,39 +29,28 @@ public class Main {
 
         LocalDateTime parisLondoServiceTime = LocalDateTime.of(
                 2021, Month.APRIL, 24, 14, 30, 0);
-
         Service parisLondoService = systemInventory.addService(parisLondoRroute, parisLondoServiceTime);
+
+        Booking booking1 = new Booking(new Passenger("Youval Geva"), parisLondoService.getId(), "First Class","Paris1", "Paris2", 'A',3);
+        Booking booking2 = new Booking(new Passenger("Bob Broun"), parisLondoService.getId(), "First Class","Paris1", "Paris2", 'A',4);
+        Booking[] bookings = {booking1, booking2};
+
+        //Simulate POST Request for Reservation
+        Response postResponse = httpClient.post("/reservation", bookings);
+        System.out.println("POST /reservation Status: " + postResponse.getStatusCode());
+        System.out.println("POST /reservation Body: " + postResponse.getBody());
+
+        // Simulate GET Request to Retrieve Booking
+        Response getResponse = httpClient.get("/booking/" + booking1.getId());
+        System.out.println("GET /booking Status: " + getResponse.getStatusCode());
+        System.out.println("GET /booking Body: " + getResponse.getBody());
         assert parisLondoService.getId() == 1;
-        //System.out.println(parisLondoService.toString());
-        try{
-           parisLondoService.isSeatAvailable('A',1,"First Class", "Paris1", "Paris2");
-           parisLondoService.saveSeat('A',1, "Paris1", "Paris2");
-           System.out.println(parisLondoService.toString());
-           parisLondoService.isSeatAvailable('A', 1, "First Class", "Paris1", "London2");
 
-           parisLondoService.isSeatAvailable('A',1,"First Class", "London1", "London2");
-           parisLondoService.saveSeat('A',1, "London1", "London2");
-           System.out.println(parisLondoService.toString());
-
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
-
-
-
-//
-//        TicketingService ticketingService = new TicketingService();
-//        HTTPClient client = new MockHTTPClient(ticketingService);
-//
-//        // Create a ticket
-//        Ticket ticket = new Ticket("1", "Fix the server issue");
-//        Response postResponse = client.post("/tickets", ticket);
-//        System.out.println("POST Response: " + postResponse.getStatusCode() + " - " + postResponse.getBody());
-//
-//        // Get the ticket
-//        Response getResponse = client.get("/tickets/1");
-//        System.out.println("GET Response: " + getResponse.getStatusCode() + " - " + getResponse.getBody());
+        // Failure
+        bookings = new Booking[]{booking1};
+        Response postResponseFailure = httpClient.post("/reservation", bookings);
+        System.out.println("POST /reservation Status: " + postResponseFailure.getStatusCode());
+        System.out.println("POST /reservation Body: " + postResponseFailure.getBody());
 
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Passenger {
     private String name;
-    private ArrayList<Ticket> tickets;
+    private ArrayList<Ticket> tickets; // TODO?
 
 
     public Passenger(String name) {

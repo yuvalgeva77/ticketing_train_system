@@ -39,12 +39,12 @@ public class Service {
         return carriages[carriageNumber].isSeatAvailable(seatNumber,seatType,originStationNumber,destinationStationNumber);
     }
 
-    public void saveSeat(int carriage, int seat, String origin, String destination) throws Exception {
+    public void reserveSeat(int carriage, int seat, String origin, String destination) throws Exception {
         int seatNumber = seat-1;
         int carriageNumber =  Character.toUpperCase(carriage) - 'A';
         int originStationNumber = this.rout.getStationNumberByName(origin);
         int destinationStationNumber = this.rout.getStationNumberByName(destination);
-        carriages[carriageNumber].saveSeat(seatNumber,originStationNumber,destinationStationNumber);
+        carriages[carriageNumber].reserveSeat(seatNumber,originStationNumber,destinationStationNumber);
     }
 
     private void isValidCarriage(int carriageNumber) throws IllegalArgumentException {

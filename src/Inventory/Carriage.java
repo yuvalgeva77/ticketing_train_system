@@ -21,8 +21,8 @@ class Carriage {
         }
     }
 
-    public void saveSeat(int seatNumber, int origin, int destination) throws IllegalArgumentException {
-         seats[seatNumber].saveSeat(origin,destination);
+    public void reserveSeat(int seatNumber, int origin, int destination) throws IllegalArgumentException {
+         seats[seatNumber].reserveSeat(origin,destination);
     }
 
     public boolean isSeatAvailable(int seatNumber, String seatType, int origin, int destination) throws IllegalArgumentException {

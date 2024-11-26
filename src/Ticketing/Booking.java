@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class Booking {
     private static long counter = 0; // Shared counter
     private final long id; // Unique ID for each booking
-    private final String passenger;
+    private final Passenger passenger;
 
     // Optional parameters
     private Long serviceId;
@@ -18,7 +18,7 @@ public class Booking {
     private LocalDateTime departureTime;
 
     // Basic constructor for required fields
-    public Booking(String passenger, String seatType, String origin, String destination, char carriage, int seatNumber) {
+    public Booking(Passenger passenger, Long serviceId, String seatType, String origin, String destination, char carriage, int seatNumber) {
         counter++;
         this.id = counter;
         this.passenger = passenger;
@@ -27,15 +27,42 @@ public class Booking {
         this.destination = destination;
         this.carriage = carriage;
         this.seatNumber = seatNumber;
+        this.serviceId = serviceId;
     }
 
     // Constructor with optional parameters
-    public Booking(String passenger, Long serviceId, String seatType, String origin, String destination, char carriage, int seatNumber, LocalDateTime departureTime) {
-        this(passenger, seatType, origin, destination, carriage, seatNumber);
-        this.serviceId = serviceId;
+    public Booking(Passenger passenger, Long serviceId, String seatType, String origin, String destination, char carriage, int seatNumber, LocalDateTime departureTime) {
+        this(passenger, serviceId, seatType, origin, destination, carriage, seatNumber);
         this.departureTime = departureTime;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public String getSeatType() {
+        return seatType;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public char getCarriage() {
+        return carriage;
+    }
+
+    public int getSeatNumber() {
+        return seatNumber;
+    }
 
     @Override
     public String toString() {
