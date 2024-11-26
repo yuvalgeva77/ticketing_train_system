@@ -18,7 +18,11 @@ public abstract class Seat {
         }
     }
 
-    public Boolean isFreeSeatInRange(int origin, int destination) throws IllegalArgumentException{
+    public boolean isSeatAvailable(String seatType, int origin, int destination) throws IllegalArgumentException {
+        return this.type.equals(seatType) && isSeatAvailableInRange(origin, destination);
+    }
+
+    public Boolean isSeatAvailableInRange(int origin, int destination) throws IllegalArgumentException {
         isValidateRange(origin, destination);
         for (int i=origin;i<=destination;i++) {
             if (this.occupiedInStop[i]){

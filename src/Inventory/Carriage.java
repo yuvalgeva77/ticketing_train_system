@@ -21,6 +21,21 @@ class Carriage {
         }
     }
 
+    public void saveSeat(int seatNumber, int origin, int destination) throws IllegalArgumentException {
+         seats[seatNumber].saveSeat(origin,destination);
+    }
+
+    public boolean isSeatAvailable(int seatNumber, String seatType, int origin, int destination) throws IllegalArgumentException {
+        isValidSeat(seatNumber);
+        return seats[seatNumber].isSeatAvailable(seatType,origin,destination);
+    }
+
+    private void isValidSeat(int seatNumber) throws IllegalArgumentException {
+        if (seatNumber < 0 || seatNumber >= this.seats.length) {
+            throw new IllegalArgumentException("Invalid seat number");
+        }
+    }
+
     public int getTotalSeats() {
         return TOTAL_FIRST_CLASS_SEATS + TOTAL_SECOND_CLASS_SEATS;
     }

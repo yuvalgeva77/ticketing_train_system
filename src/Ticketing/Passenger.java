@@ -1,4 +1,4 @@
-package Tickets;
+package Ticketing;
 
 import java.util.ArrayList;
 
