@@ -1,20 +1,12 @@
-Assignment
-The assignment is about a ticketing service. The goal is to create a service that can book tickets
+Ticketing service
+The goal is to create a service that can book tickets.
 and make reservations on physical seats on a given service with an origin & destination for
-multiple passengers. In this assignment there are no prices, no products and no payments.
-Note
-Please show us what you are capable of. Make sure you are proud of the code you
-implement for this assignment. Architectural choices are more important than
-implementing all the features. Quality is key. Make sure each part of your code is
-behaving correctly and not susceptible to regression issues.
-Some other requirements:
+multiple passengers
+
 1. No automatic seating algorithm, seats are explicitly given with a reservation request.
 2. Implement a REST interface without the HTTP. Meaning, your application doesn’t need
 to run a HTTP server and accept client connections. See Kotlin interfaces below.
-3. No external libraries are required, only libraries available with standard Java, Kotlin or
-Golang.
-a. For testing purposes libraries are allowed
-Note
+
 Although the interfaces below are Kotlin code. You can convert them into Golang and
 implement your code in Go using the standard Golang library.
 Basic Interfaces
@@ -26,6 +18,7 @@ interface HTTPClient {
 fun post(url: String, body: Any): Response
 fun get(url: String): Response
 }
+
 Context
 Inventory
 Stations Each station has a name
@@ -46,6 +39,7 @@ destination on a certain service.
 Passenger A passenger will have a name and can have multiple tickets.
 Reservation System A collection of bookings that can answer queries & stores new
 bookings.
+
 Scenarios
 With this data model we would like you to implement the following scenarios.
 Note: At least implement routes from Paris to London, Paris to Amsterdam and Amsterdam to
