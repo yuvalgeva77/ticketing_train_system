@@ -10,18 +10,14 @@ LocalDB: Stores services data
 */
 
 public class SystemInventory {
-    // Singleton instance
     private static SystemInventory instance;
+    private final Map<Long, Service> services; // <serve id,service>
 
-    // In-memory storage for trains
-    private Map<Long, Service> services = new HashMap<>(); // <id,serviec>
-
-    // Private constructor to prevent external instantiation
     private SystemInventory() {
         services = new HashMap<>();
     }
 
-    // method to get the singleton instance
+    // Get the singleton instance
     public static SystemInventory getInstance() {
         if (instance == null) {
             instance = new SystemInventory();

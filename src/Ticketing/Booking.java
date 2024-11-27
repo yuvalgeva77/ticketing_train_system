@@ -1,6 +1,10 @@
 package Ticketing;
-
-import java.time.LocalDateTime;
+/*
+Represent a single request for a ticket by the user
+A collection of passenger information and seat reservations.
+A booking has a unique identifier.
+If all valid bookings received in a user requests - each booking will create a matching ticket returned to the user.
+*/
 
 // Reservation Request
 public class Booking {

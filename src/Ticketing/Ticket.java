@@ -1,11 +1,9 @@
 package Ticketing;
 
-import Inventory.Seat;
-import Inventory.Service;
-
 /*
 A ticket contains a seat and is only valid for an origin and destination on a certain service.
 Successful reservation request will create matching tickets
+Ticket will return to the user on booking success
  */
 
 public class Ticket {

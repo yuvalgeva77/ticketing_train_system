@@ -49,7 +49,7 @@ public class ReservationSystem {
     }
 
     // Check if all seats are available for a few booking
-    private boolean isAllSeatsAvailable(Booking[] bookings) throws Exception {
+    private boolean areAllSeatsAvailable(Booking[] bookings) throws Exception {
         for (Booking booking : bookings) {
             if (!isSeatAvailable(booking)) {
                 return false;
@@ -92,6 +92,11 @@ public class ReservationSystem {
         return  tickets;
     }
 
+    // Main function to make reservation
+    // Receives bookings: array of booking requests
+    // Checks if all seats requests are valid and free
+    // On success - saves seats and returns matching tickets for each seat
+    // On failure returns error code
     public Response makeReservation(Booking[] bookings) {
         if (bookings == null || bookings.length==0) {
             return new SimpleResponse(404, "Booking is empty");
@@ -99,7 +104,7 @@ public class ReservationSystem {
 
      try {
          // Check if all requested seats are available
-         if(!isAllSeatsAvailable(bookings)) {
+         if(!areAllSeatsAvailable(bookings)) {
              return new SimpleResponse(409, "Reservation Failed: Some seats are already taken");
          }
          // Reserve seats and create tickets

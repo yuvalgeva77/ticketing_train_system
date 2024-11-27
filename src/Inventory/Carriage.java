@@ -21,8 +21,8 @@ class Carriage {
         }
     }
 
-    public void reserveSeat(int seatNumber, int origin, int destination) throws IllegalArgumentException {
-         seats[seatNumber].reserveSeat(origin,destination);
+    public boolean reserveSeat(int seatNumber, int origin, int destination) throws IllegalArgumentException {
+         return seats[seatNumber].reserveSeat(origin,destination);
     }
 
     public boolean isSeatAvailable(int seatNumber, String seatType, int origin, int destination) throws IllegalArgumentException {
@@ -34,10 +34,6 @@ class Carriage {
         if (seatNumber < 0 || seatNumber >= this.seats.length) {
             throw new IllegalArgumentException("Invalid seat number");
         }
-    }
-
-    public int getTotalSeats() {
-        return TOTAL_FIRST_CLASS_SEATS + TOTAL_SECOND_CLASS_SEATS;
     }
 
     @Override

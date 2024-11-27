@@ -35,7 +35,7 @@ public class Main {
                 2021, Month.APRIL, 7, 14, 30, 0);
         Service LondonParisService = systemInventory.addService(LondonParisRroute, LondonParisRouteServiceTime);
 
-        Booking booking1 = new Booking(new Passenger("Youval Geva"), parisLondoService.getId(), "First Class","Paris1", "Paris2", 'A',11);
+        Booking booking1 = new Booking(new Passenger("Youval Geva"), parisLondoService.getId(), "First Class","Paris1", "Paris2", 'C',7);
         Booking booking2 = new Booking(new Passenger("Bob Broun"), parisLondoService.getId(), "First Class","Paris1", "Paris2", 'A',12);
         Booking[] bookingsParisLondon = {booking1, booking2};
 
@@ -51,15 +51,18 @@ public class Main {
         System.out.println("POST /reservation Body: " + postResponse.getBody());
 
         // Simulate GET Request to Retrieve Booking
-        Response getResponse = httpClient.get("/booking/" + booking1.getId());
+        Response getResponse = httpClient.get("/booking/" + booking3.getId());
         System.out.println("GET /booking Status: " + getResponse.getStatusCode());
         System.out.println("GET /booking Body: " + getResponse.getBody());
-        assert parisLondoService.getId() == 1;
 
         // Failure
         Response postResponseFailure = httpClient.post("/reservation", bookingsParisLondon);
         System.out.println("POST /reservation Status: " + postResponseFailure.getStatusCode());
         System.out.println("POST /reservation Body: " + postResponseFailure.getBody());
+
+        Response getResponseFailure = httpClient.get("/booking/" + booking2.getId());
+        System.out.println("GET /booking Status: " + getResponseFailure.getStatusCode());
+        System.out.println("GET /booking Body: " + getResponseFailure.getBody());
 
     }
 

@@ -1,7 +1,8 @@
 package Inventory;
 
 public abstract class Seat {
-    protected boolean[] occupiedInStop;
+
+    protected boolean[] occupiedInStop; // Represents which stops this seat is occupied
     protected String type;
     protected int price;
     protected int width;
@@ -11,18 +12,19 @@ public abstract class Seat {
         this.occupiedInStop = new boolean[routSize];
     }
 
-    public void reserveSeat(int origin, int destination) throws IllegalArgumentException {
+    public boolean reserveSeat(int origin, int destination) throws IllegalArgumentException {
         isValidateRange(origin, destination);
         for (int i=origin;i<=destination;i++) {
             this.occupiedInStop[i] = true;
         }
+        return true;
     }
 
     public boolean isSeatAvailable(String seatType, int origin, int destination) throws IllegalArgumentException {
         return this.type.equals(seatType) && isSeatAvailableInRange(origin, destination);
     }
 
-    public Boolean isSeatAvailableInRange(int origin, int destination) throws IllegalArgumentException {
+    private Boolean isSeatAvailableInRange(int origin, int destination) throws IllegalArgumentException {
         isValidateRange(origin, destination);
         for (int i=origin;i<=destination;i++) {
             if (this.occupiedInStop[i]){
@@ -46,7 +48,7 @@ public abstract class Seat {
         String occupied = "";
         for (int i=0;i<occupiedInStop.length;i++) {
             if(this.occupiedInStop[i]){
-                occupied += (occupied.equals("")) ? i : ", " + i;
+                occupied += (occupied.isEmpty()) ? i : ", " + i;
             }
         }
         return occupied;
@@ -55,7 +57,7 @@ public abstract class Seat {
     @Override
     public String toString() {
         String occupiedStops = getOccupiedStops();
-        String occupiedStopsString = (!occupiedStops.equals("")) ? "Occupied stops = " + occupiedStops : "Free";
+        String occupiedStopsString = (!occupiedStops.isEmpty()) ? "Occupied stops = " + occupiedStops : "Free";
 
         return type + " Seat{" +
                 occupiedStopsString + '}';
